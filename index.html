@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Yifan Wang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Yifan Wang - Ph.D. student at Shanghai Jiao Tong University.">
+  <meta name="keywords" content="Yifan Wang, SJTU, PhD, Research, 4D World Modeling, 3D Reconstruction">
+  <meta property="og:title" content="Yifan Wang | SJTU">
+  <meta property="og:description" content="Ph.D. student at Shanghai Jiao Tong University.">
+  <meta property="og:image" content="data/others/yifan.jpg">
+  <link rel="stylesheet" href="static/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="icon" href="data/logos/Logo.png" type="image/x-icon">
+  <script src="data/publications.js"></script>
+  <style>
+    :root {
+      /* Primary Brand Colors */
+      --deep-navy: #2F365A;
+      --royal-purple: #6B597F;
+      --dusty-rose: #A18699;
+      --deep-coral: #B26A6E;
+      --soft-blue: #92A1C2;
+      --steel-blue: #3F5B8D;
+      --accent-orange: #E86252;
+
+      /* Link Colors */
+      --link-blue: #3F5B8D;
+      --highlight-red: #bf0000;
+
+      /* Background Colors */
+      --bg-page: #f9fbff;
+      --bg-light: #fdfdfd;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f9fbff;
+      --bg-highlight: #d6eef8;
+      --bg-author: #f0f0f0;
+      --bg-author-cofirst: #A18699;
+      --bg-link: #f4f6f9;
+
+      /* Border Colors */
+      --border-light: #eeeeee;
+      --border-divider: #f0f0f0;
+
+      /* Text Colors */
+      --text-muted: #666666;
+    }
+
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+
+    /* Overall Page Layout Background */
+    html {
+      background-color: var(--bg-page) !important;
+    }
+
+    body {
+      background-color: var(--bg-page) !important;
+      color: var(--deep-navy);
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Gradient fallback to ensure navy is always behind sidebar */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 300px;
+      height: 100%;
+      background-color: var(--deep-navy);
+      z-index: -1;
+    }
+
+    /* Sidebar Refinement */
+    .w3-sidebar {
+      background-color: var(--deep-navy) !important;
+      color: white !important;
+      border: none !important;
+      margin: 0 !important;
+      width: 300px !important;
+      left: 0 !important;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      /* Hide scrollbar - JS will switch to top nav if content overflows */
+      /* Solid 1px extension + Shadow to bridge sub-pixel gaps */
+      box-shadow: 1px 0 0 var(--deep-navy), 4px 0 25px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .w3-sidebar .chinese-name {
+      color: var(--soft-blue) !important;
+      font-size: 1.4em;
+    }
+
+    .w3-sidebar a {
+      color: rgba(255, 255, 255, 0.7) !important;
+      border-radius: 0 25px 25px 0;
+      margin-right: 20px;
+      transition: all 0.3s ease;
+      margin-bottom: 4px;
+      padding: 8px 24px !important;
+      border-left: 4px solid transparent;
+      font-weight: 500;
+    }
+
+    .w3-sidebar a:hover,
+    .w3-sidebar a.active {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      color: white !important;
+      border-left: 4px solid var(--accent-orange);
+      border-right: 4px solid var(--accent-orange);
+    }
+
+    .sidebar-name-container {
+      padding: 0 20px;
+      margin-bottom: 0px;
+    }
+
+    .sidebar-name-en {
+      font-size: 1.8em;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-bottom: 0px;
+      color: white;
+      font-family: 'Times New Roman', serif;
+    }
+
+    .sidebar-name-zh {
+      font-size: 1.4em;
+      font-weight: 700;
+      color: var(--soft-blue);
+      margin-top: -5px;
+      font-family: 'KaiTi', '楷体', serif;
+    }
+
+    /* Divider line after name section (horizontal for sidebar) */
+    .sidebar-name-container::after {
+      content: "";
+      display: block;
+      width: 60%;
+      height: 2px;
+      background-color: var(--accent-orange);
+      margin: 0 auto -20px auto;
+    }
+
+    /* Reduce gap between divider and nav links in sidebar */
+    .w3-sidebar .w3-bar-block {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    .w3-sidebar .w3-bar-block a:first-child {
+      margin-top: 0;
+    }
+
+    /* Cards and Containers */
+    .w3-card {
+      border-radius: 12px;
+      overflow: visible;
+      border: none !important;
+      box-shadow: 0 4px 20px rgba(47, 54, 90, 0.05) !important;
+    }
+
+    /* Avatar 4:3 Rectangle (Height 4, Width 3) */
+    .avatar-rect {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 3px solid var(--soft-blue);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Avatar Carousel */
+    .avatar-carousel {
+      position: relative;
+      width: 100%;
+    }
+
+    .avatar-carousel .carousel-slide {
+      display: none;
+      position: relative;
+    }
+
+    .avatar-carousel .carousel-slide.active {
+      display: block;
+    }
+
+    .avatar-carousel .year-tag {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      background: var(--accent-orange);
+      color: var(--deep-navy);
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-size: 0.85em;
+      font-weight: 600;
+      backdrop-filter: blur(5px);
+    }
+
+    .avatar-carousel .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--deep-navy);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.7);
+      box-shadow: none;
+      opacity: 0.9;
+    }
+
+    .carousel-nav:hover {
+      background: var(--accent-orange);
+      color: var(--deep-navy);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      transform: translateY(-50%) scale(1.1);
+      opacity: 1;
+    }
+
+    .carousel-nav.prev {
+      left: 10px;
+    }
+
+    .carousel-nav.next {
+      right: 10px;
+    }
+
+    /* Bio carousel specific - floated layout */
+    .bio-carousel {
+      float: right;
+      width: 18vw;
+      max-width: 260px;
+      min-width: 140px;
+      margin-right: 5px;
+    }
+
+    /* Bio carousel on small screens - keep right aligned, hide nav and tag */
+    @media (max-width: 500px) {
+      .bio-carousel {
+        width: 35%;
+        max-width: 150px;
+        min-width: 100px;
+        margin-right: 0 !important;
+      }
+
+      .bio-carousel .carousel-nav {
+        display: none !important;
+      }
+
+      .bio-carousel .year-tag {
+        display: none;
+      }
+    }
+
+    h2 b {
+      color: var(--deep-navy);
+      border-bottom: 3px solid var(--accent-orange);
+      padding-bottom: 5px;
+    }
+
+    /* Modern Publication Styles */
+    .filter-container {
+      margin: 25px 0;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 22px;
+      border: 2px solid var(--deep-navy);
+      border-radius: 25px;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      font-family: inherit;
+      font-weight: 600;
+      color: var(--deep-navy);
+    }
+
+    .filter-btn:hover {
+      background-color: rgba(146, 161, 194, 0.05);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(232, 98, 82, 0.3);
+      border-color: var(--accent-orange);
+    }
+
+    .filter-btn.active {
+      background-color: var(--deep-navy) !important;
+      color: white !important;
+      border-color: var(--accent-orange);
+      box-shadow: 0 5px 15px rgba(232, 98, 82, 0.3);
+      transform: translateY(0);
+    }
+
+    .pub-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      /* Extremly compact */
+      margin-top: 15px;
+    }
+
+    .pub-card {
+      display: flex;
+      gap: 20px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: var(--bg-light);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(47, 54, 90, 0.05);
+      /* Publication Card Background - Change this to give cards a color */
+      background-color: var(--bg-card);
+    }
+
+    .pub-card:hover {
+      transform: translateX(8px) scale(1.01);
+      background: var(--bg-card-hover);
+      border-left: 3px solid var(--accent-orange);
+      box-shadow: 0 12px 35px rgba(47, 54, 90, 0.15);
+    }
+
+    .pub-image {
+      flex: 0 0 360px;
+      max-width: 360px;
+    }
+
+    .pub-image img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .pub-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pub-title {
+      font-size: 1.2em;
+      font-weight: 800;
+      margin-bottom: 8px;
+      line-height: 1.3;
+      color: var(--deep-navy);
+    }
+
+    .pub-venue-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+
+    .pub-venue {
+      font-weight: 700;
+      color: var(--text-muted);
+      font-size: 0.9em;
+      letter-spacing: 0.5px;
+    }
+
+    .venue-highlight {
+      background: rgba(232, 98, 82, 0.1);
+      color: var(--accent-orange);
+      padding: 2px 10px;
+      font-size: 1.0em;
+      font-weight: 900;
+      border-radius: 6px;
+    }
+
+    .pub-achievements {
+      /* background: rgba(232, 98, 82, 0.1);
+      color: var(--accent-orange); */
+      background-color: var(--accent-orange);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85em;
+      display: inline-block;
+    }
+
+    .pub-authors {
+      margin-top: 4px;
+      margin-bottom: 10px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-size: 0.95em;
+    }
+
+    /* Author Highlights */
+    .author-name {
+      display: inline-block;
+      padding: 0px 6px;
+      border-radius: 10px;
+      white-space: nowrap;
+      background: var(--bg-author);
+      transition: 0.3s;
+    }
+
+    .author-me {
+      background-color: var(--royal-purple) !important;
+      color: white !important;
+      font-weight: 600;
+    }
+
+    .author-co-first {
+      background-color: var(--bg-author-cofirst);
+      color: white;
+    }
+
+    .author-default {
+      font-size: 0.9em;
+    }
+
+    .pub-links {
+      margin-top: 0px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85em;
+      flex-wrap: wrap;
+    }
+
+    .pub-links a {
+      color: var(--steel-blue);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 4px 8px;
+      background: var(--bg-link);
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    .pub-links a:hover {
+      background: var(--steel-blue);
+      color: white;
+    }
+
+    /* Badge links (containing images) - no background */
+    .pub-links a:has(img) {
+      background: transparent;
+      padding: 0;
+    }
+
+    .pub-links a:has(img):hover {
+      background: transparent;
+    }
+
+    /* Publication Cards: Responsive vertical layout on small screens */
+    @media (max-width: 768px) {
+      .pub-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .pub-image {
+        flex: none;
+        max-width: 100%;
+        width: 100%;
+        margin-bottom: 15px;
+      }
+
+      .pub-image img {
+        max-width: 300px;
+        margin: 0 auto;
+        display: block;
+      }
+
+      .pub-content {
+        width: 100%;
+      }
+
+      .pub-venue-row {
+        justify-content: center;
+      }
+
+      .pub-authors {
+        text-align: center;
+      }
+
+      .pub-links {
+        justify-content: center;
+      }
+    }
+
+    /* Experience: Responsive layout on very small screens */
+    /* Row 1: Logo centered, Row 2: info (left) + date (right) */
+    @media (max-width: 500px) {
+      .exp-item {
+        display: grid !important;
+        grid-template-areas:
+          "logo logo"
+          "content meta";
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        gap: 15px 20px;
+        align-items: center;
+      }
+
+      .exp-logo {
+        grid-area: logo;
+        justify-self: center;
+        max-width: 180px !important;
+        margin: 0;
+      }
+
+      .exp-logo img {
+        max-width: 180px;
+      }
+
+      .exp-content {
+        grid-area: content;
+        text-align: left;
+      }
+
+      .exp-title {
+        text-align: left;
+      }
+
+      .exp-info {
+        text-align: left;
+      }
+
+      .exp-meta {
+        grid-area: meta;
+        text-align: right;
+        align-self: center;
+      }
+    }
+
+    /* Transitions */
+    .fade-in {
+      animation: fadeIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* General Red overrides */
+    span[style*="color: #bf0000"],
+    font[color="#bf0000"] {
+      color: var(--accent-orange) !important;
+    }
+
+    /* Section Header Styling */
+    h2 b {
+      color: var(--deep-navy);
+      border-bottom: 2px solid var(--accent-orange);
+      padding-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Modern List Styling for Awards & Services */
+    .item-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .list-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-divider);
+    }
+
+    .list-item:last-child {
+      border-bottom: none;
+    }
+
+    .list-item-content {
+      flex: 1;
+    }
+
+    .list-item-date {
+      min-width: 100px;
+      text-align: right;
+    }
+
+    .highlight-award {
+      font-weight: 900;
+      color: var(--deep-navy);
+    }
+
+    /* Experience Modernization - Card Style like Publications */
+    .exp-item {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      background-color: var(--bg-card);
+      border: 1px solid rgba(47, 54, 90, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .exp-item:hover {
+      transform: translateX(5px);
+      background: var(--bg-card-hover);
+      border-color: var(--border-light);
+      border-left: 3px solid var(--accent-orange);
+      box-shadow: 0 8px 25px rgba(47, 54, 90, 0.08);
+    }
+
+    .exp-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .exp-logo {
+      flex: 0 0 180px;
+      max-width: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .exp-logo img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .exp-content {
+      flex: 1;
+    }
+
+    .exp-title {
+      font-size: 1.15em;
+      font-weight: 900;
+      color: var(--deep-navy);
+    }
+
+    .exp-info {
+      margin-top: 0px;
+      line-height: 1.6;
+    }
+
+    .exp-meta {
+      text-align: right;
+      min-width: 150px;
+      flex-shrink: 0;
+    }
+
+    .exp-location {
+      font-weight: 700;
+      color: var(--deep-navy);
+      font-size: 0.95em;
+    }
+
+    .exp-date {
+      margin-top: 4px;
+    }
+
+    /* Pronunciation Scroll Widget */
+    .pronunciation-widget {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 6px 16px;
+      background: var(--steel-blue);
+      color: white;
+      border-radius: 20px;
+      font-size: 0.85em;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(107, 89, 127, 0.2);
+    }
+
+    .pronunciation-widget:hover {
+      transform: scale(1.05);
+      background: var(--deep-navy);
+    }
+
+    .pronunciation-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: var(--bg-card);
+      border-radius: 8px;
+    }
+
+    .pronunciation-panel.show {
+      max-height: 200px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid rgba(47, 54, 90, 0.05);
+      border-left: 4px solid var(--soft-blue);
+    }
+
+    /* Removed static modal styles as we moved to inline accordion */
+
+    /* RESPONSIVE LAYOUT TRANSFORMATION */
+    /* This is now triggered by JavaScript when sidebar content doesn't fit vertically */
+    /* OR by media query when width is somewhat narrow (768px - 992px) */
+    /* The .use-top-nav class is added by JS when sidebar overflows - styles defined below */
+
+    @media (max-width: 992px) and (min-width: 768px) {
+
+      /* CRITICAL: Override w3.css that hides .w3-sidebar.w3-collapse at max-width:992px */
+      .w3-sidebar.w3-collapse {
+        display: flex !important;
+      }
+
+      body::before {
+        display: none;
+      }
+
+      /* 1. Top Navigation Container - sticky for scroll */
+      nav.w3-sidebar {
+        width: 100% !important;
+        height: auto !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 100 !important;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        /* CRITICAL: Prevent wrapping */
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 5px 20px !important;
+        background-color: var(--deep-navy) !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+        overflow: visible !important;
+      }
+
+      /* 2. Main Content Reset */
+      .w3-main {
+        margin-left: 0 !important;
+        padding-top: 10px;
+        max-width: 100% !important;
+        width: 100% !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        box-sizing: border-box !important;
+      }
+
+      /* Ensure cards don't clip content */
+      .w3-card {
+        overflow: visible !important;
+      }
+
+      /* Prevent image from being cut off */
+      .bio-carousel {
+        margin-right: 10px !important;
+        overflow: visible !important;
+      }
+
+      /* 3. Sidebar Avatar Carousel: Hidden entirely (including nav buttons and year tags) */
+      nav.w3-sidebar .avatar-carousel {
+        display: none !important;
+      }
+
+      /* CRITICAL: The outer container that wraps avatar + name must be inline flex */
+      nav.w3-sidebar>.w3-container.w3-padding-24 {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: auto !important;
+        flex-shrink: 0 !important;
+      }
+
+      /* 4. Name Container: Horizontal Row */
+      nav.w3-sidebar .sidebar-name-container {
+        padding: 0 !important;
+        margin: 0 !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 10px !important;
+        text-align: left !important;
+        width: auto !important;
+        flex-shrink: 0 !important;
+      }
+
+      nav.w3-sidebar .sidebar-name-en {
+        font-size: 1.2em !important;
+        line-height: 1;
+        margin: 0 !important;
+        color: white !important;
+        white-space: nowrap !important;
+      }
+
+      nav.w3-sidebar .sidebar-name-zh {
+        font-size: 1em !important;
+        margin: 0 !important;
+        color: var(--soft-blue) !important;
+        white-space: nowrap !important;
+      }
+
+      /* Divider: Change to vertical line in horizontal nav */
+      nav.w3-sidebar .sidebar-name-container::after {
+        content: "" !important;
+        display: block !important;
+        width: 2px !important;
+        height: 30px !important;
+        background-color: var(--accent-orange) !important;
+        margin: 0 15px !important;
+        flex-shrink: 0 !important;
+      }
+
+      /* 5. Navigation Links: Horizontal Row */
+      nav.w3-sidebar .w3-bar-block {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        width: auto !important;
+        margin: 0 !important;
+        background: transparent !important;
+        flex-shrink: 0 !important;
+      }
+
+      /* CRITICAL: Handle the <b> wrapper for links */
+      nav.w3-sidebar .w3-bar-block b {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 10px !important;
+      }
+
+      nav.w3-sidebar .w3-bar-item {
+        width: auto !important;
+        padding: 8px 10px !important;
+        margin: 0 !important;
+        border: none !important;
+        border-bottom: 3px solid transparent !important;
+        font-size: 0.9em !important;
+        white-space: nowrap !important;
+        display: inline-block !important;
+      }
+
+      nav.w3-sidebar a:hover,
+      nav.w3-sidebar a.active {
+        border-left: none !important;
+        border-bottom: 3px solid var(--accent-orange) !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+      }
+
+      /* 6. Last Updated: Show inline on right side */
+      nav.w3-sidebar .w3-container.w3-padding-16 {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 6px !important;
+        padding: 0 !important;
+        margin-left: auto !important;
+        flex-shrink: 0 !important;
+      }
+
+      nav.w3-sidebar .w3-container.w3-padding-16>div:first-child {
+        font-size: 0.7em !important;
+        color: rgba(255, 255, 255, 0.5) !important;
+        white-space: nowrap !important;
+      }
+
+      nav.w3-sidebar .w3-container.w3-padding-16>div:last-child {
+        font-size: 0.8em !important;
+        white-space: nowrap !important;
+      }
+
+      /* 7. Force Show Bio Avatar */
+      .w3-hide-large {
+        display: block !important;
+      }
+
+      /* Bio Avatar: Use 4:3 rectangle, always 1/5 of page width */
+      .bio-avatar {
+        width: 18vw !important;
+        max-width: 260px !important;
+        min-width: 100px !important;
+        aspect-ratio: 3/4 !important;
+        object-fit: cover !important;
+        border-radius: 8px !important;
+        border: 3px solid var(--soft-blue) !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+      }
+
+      /* Ensure the biography section doesn't clip the avatar */
+      #biography {
+        overflow: visible !important;
+      }
+    }
+
+    /* VERY SMALL SCREENS: Hide Nav entirely when it can't fit in one line */
+    @media (max-width: 767px) {
+      nav.w3-sidebar {
+        display: none !important;
+      }
+
+      body::before {
+        display: none;
+      }
+
+      .w3-main {
+        margin-left: 0 !important;
+      }
+
+      .w3-hide-large {
+        display: block !important;
+      }
+
+      /* Bio Avatar: Same 4:3 rectangle, 1/5 of page width */
+      .bio-avatar {
+        width: 20vw !important;
+        max-width: 360px !important;
+        min-width: 80px !important;
+        aspect-ratio: 3/4 !important;
+        object-fit: cover !important;
+        border-radius: 8px !important;
+        border: 3px solid var(--soft-blue) !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+      }
+    }
+
+    /* JAVASCRIPT-TRIGGERED TOP NAVIGATION */
+    /* When sidebar content doesn't fit vertically, JS adds .use-top-nav to body */
+    /* This duplicates the media query styles but is triggered by content overflow instead of viewport size */
+    /* Override body::before navy background when JS triggers top-nav mode */
+    body.use-top-nav::before {
+      display: none;
+    }
+
+    body.use-top-nav .w3-sidebar.w3-collapse {
+      display: flex !important;
+    }
+
+    body.use-top-nav nav.w3-sidebar {
+      width: 100% !important;
+      height: auto !important;
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 100 !important;
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding: 5px 20px !important;
+      background-color: var(--deep-navy) !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+      overflow: visible !important;
+    }
+
+    body.use-top-nav .w3-main {
+      margin-left: 0 !important;
+      padding-top: 10px;
+      max-width: 100% !important;
+      width: 100% !important;
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+      box-sizing: border-box !important;
+    }
+
+    body.use-top-nav .w3-card {
+      overflow: visible !important;
+    }
+
+    body.use-top-nav .bio-carousel {
+      margin-right: 10px !important;
+      overflow: visible !important;
+    }
+
+    body.use-top-nav nav.w3-sidebar .avatar-carousel {
+      display: none !important;
+    }
+
+    body.use-top-nav nav.w3-sidebar>.w3-container.w3-padding-24 {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      width: auto !important;
+      flex-shrink: 0 !important;
+    }
+
+    body.use-top-nav nav.w3-sidebar .sidebar-name-container {
+      padding: 0 !important;
+      margin: 0 !important;
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 10px !important;
+      text-align: left !important;
+      width: auto !important;
+      flex-shrink: 0 !important;
+    }
+
+    body.use-top-nav nav.w3-sidebar .sidebar-name-en {
+      font-size: 1.2em !important;
+      line-height: 1;
+      margin: 0 !important;
+      color: white !important;
+      white-space: nowrap !important;
+    }
+
+    body.use-top-nav nav.w3-sidebar .sidebar-name-zh {
+      font-size: 1em !important;
+      margin: 0 !important;
+      color: var(--soft-blue) !important;
+      white-space: nowrap !important;
+    }
+
+    body.use-top-nav nav.w3-sidebar .sidebar-name-container::after {
+      content: "" !important;
+      display: block !important;
+      width: 2px !important;
+      height: 30px !important;
+      background-color: var(--accent-orange) !important;
+      margin: 0 15px !important;
+      flex-shrink: 0 !important;
+    }
+
+    body.use-top-nav nav.w3-sidebar .w3-bar-block {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      width: auto !important;
+      margin: 0 !important;
+      background: transparent !important;
+      flex-shrink: 0 !important;
+    }
+
+    body.use-top-nav nav.w3-sidebar .w3-bar-block b {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 10px !important;
+    }
+
+    body.use-top-nav nav.w3-sidebar .w3-bar-item {
+      width: auto !important;
+      padding: 8px 10px !important;
+      margin: 0 !important;
+      border: none !important;
+      border-bottom: 3px solid transparent !important;
+      font-size: 0.9em !important;
+      white-space: nowrap !important;
+      display: inline-block !important;
+    }
+
+    body.use-top-nav nav.w3-sidebar a:hover,
+    body.use-top-nav nav.w3-sidebar a.active {
+      border-left: none !important;
+      border-bottom: 3px solid var(--accent-orange) !important;
+      background: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    body.use-top-nav nav.w3-sidebar .w3-container.w3-padding-16 {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 6px !important;
+      padding: 0 !important;
+      margin-left: auto !important;
+      flex-shrink: 0 !important;
+    }
+
+    body.use-top-nav nav.w3-sidebar .w3-container.w3-padding-16>div:first-child {
+      font-size: 0.7em !important;
+      color: rgba(255, 255, 255, 0.5) !important;
+      white-space: nowrap !important;
+    }
+
+    body.use-top-nav nav.w3-sidebar .w3-container.w3-padding-16>div:last-child {
+      font-size: 0.8em !important;
+      white-space: nowrap !important;
+    }
+
+    body.use-top-nav .w3-hide-large {
+      display: block !important;
+    }
+
+    body.use-top-nav .bio-avatar {
+      width: 18vw !important;
+      max-width: 260px !important;
+      min-width: 100px !important;
+      aspect-ratio: 3/4 !important;
+      object-fit: cover !important;
+      border-radius: 8px !important;
+      border: 3px solid var(--soft-blue) !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    body.use-top-nav #biography {
+      overflow: visible !important;
+    }
+
+    /* Social Links Styling */
+    .social-links-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background-color: white;
+      color: var(--deep-navy) !important;
+      border-radius: 30px;
+      text-decoration: none !important;
+      font-weight: 700;
+      font-size: 0.9em;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      border: 2px solid var(--deep-navy);
+      box-shadow: 0 2px 5px rgba(232, 98, 82, 0.1);
+    }
+
+    .social-btn:hover {
+      background-color: var(--deep-navy) !important;
+      color: white !important;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(232, 98, 82, 0.3);
+      border-color: var(--accent-orange);
+    }
+
+    .social-icon {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      transition: transform 0.3s ease;
+    }
+
+    .social-btn:hover .social-icon {
+      transform: scale(1.1);
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-content {
+      background-color: var(--bg-card);
+      padding: 20px;
+      border-radius: 16px;
+      position: relative;
+      max-width: 90%;
+      width: auto;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      color: var(--text-muted);
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+      color: var(--accent-orange);
+    }
+
+    /* News Module Styles - Compact Inline Design */
+    .news-section {
+      margin-top: 20px;
+      clear: both;
+    }
+
+    .news-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      color: var(--deep-navy);
+      transition: all 0.2s ease;
+    }
+
+    .news-header:hover {
+      color: var(--accent-orange);
+    }
+
+    .news-header-icon {
+      font-size: 1.1em;
+    }
+
+    .news-header-title {
+      font-weight: 800;
+      font-size: 1em;
+      border-bottom: 2px solid var(--accent-orange);
+      padding-bottom: 2px;
+    }
+
+    .news-header-toggle {
+      font-size: 0.7em;
+      color: var(--text-muted);
+      transition: transform 0.3s ease;
+    }
+
+    .news-header.expanded .news-header-toggle {
+      transform: rotate(180deg);
+    }
+
+    .news-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease-in-out;
+    }
+
+    .news-content.show {
+      max-height: 500px;
+    }
+
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      padding-left: 15px;
+      margin-left: 5px;
+    }
+
+    .news-list::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--accent-orange), var(--deep-navy));
+      border-radius: 2px;
+    }
+
+    .news-item {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      border-left: 2px solid transparent;
+    }
+
+    .news-item:hover {
+      background: rgba(146, 161, 194, 0.08);
+      border-left-color: var(--accent-orange);
+    }
+
+    .news-date {
+      flex-shrink: 0;
+      background: var(--bg-author);
+      color: var(--deep-navy);
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 0.75em;
+      font-weight: 600;
+      min-width: 70px;
+      text-align: center;
+    }
+
+    .news-text {
+      flex: 1;
+      color: var(--deep-navy);
+      line-height: 1.4;
+      font-size: 0.9em;
+    }
+
+    .news-text b {
+      color: var(--accent-orange);
+    }
+
+    .news-text a {
+      color: var(--steel-blue);
+      font-weight: 600;
+      font-style: italic;
+      text-decoration: underline;
+    }
+
+    .news-text a:hover {
+      color: var(--accent-orange);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Sidebar/menu -->
+  <nav class="w3-sidebar w3-collapse w3-animate-left w3-center" style="z-index:3;width:300px;" id="mySidebar">
+    <div class="w3-container w3-padding-24 w3-center">
+      <div class="avatar-carousel w3-margin-bottom">
+        <div class="carousel-slide active">
+          <img src="data/others/yifan.jpg" class="avatar-rect">
+          <span class="year-tag">2026</span>
+        </div>
+        <button class="carousel-nav prev" onclick="changeAvatar(-1)">❮</button>
+        <button class="carousel-nav next" onclick="changeAvatar(1)">❯</button>
+      </div>
+      <div class="sidebar-name-container">
+        <h3 class="sidebar-name-en">Yifan Wang</h3>
+        <h3 class="sidebar-name-zh">王一凡</h3>
+      </div>
+    </div>
+    <div class="w3-bar-block w3-center"><b>
+        <a href="#biography" class="w3-bar-item w3-button">Biography</a>
+        <a href="#publications" class="w3-bar-item w3-button">Publications</a>
+        <a href="#experiences" class="w3-bar-item w3-button">Experiences</a>
+      </b>
+    </div>
+    <div class="w3-container w3-padding-16">
+      <div style="color: var(--soft-blue); text-transform: uppercase; letter-spacing: 1px;">
+        Updated
+      </div>
+      <div style="color: var(--accent-orange); font-weight: 700;">
+        Jan 30, 2026
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- !PAGE CONTENT! -->
+  <style>
+    /* Default spacing for large screens */
+    .w3-main {
+      margin-left: 300px;
+    }
+  </style>
+  <div class="w3-main">
+
+
+    <div class="w3-container w3-card w3-white w3-margin-bottom" id="biography">
+      <div class="avatar-carousel bio-carousel w3-right w3-margin w3-hide-large">
+        <div class="carousel-slide">
+          <img src="data/others/yifan.jpg" class="bio-avatar">
+          <span class="year-tag">2026</span>
+        </div>
+        <button class="carousel-nav prev" onclick="changeAvatar(-1)">❮</button>
+        <button class="carousel-nav next" onclick="changeAvatar(1)">❯</button>
+      </div>
+      <h2><b>Biography</b></h2>
+      <div style="line-height: 1.8; color: var(--deep-navy);">
+        Hello, my name is <b>Yifan Wang</b>. I'm currently a <span style="font-size: 1.25em"><b>2<sup>nd</sup></b></span> year Ph.D. student at <a style="color: var(--link-blue)" href="https://en.sjtu.edu.cn/"><b>Shanghai Jiao Tong University</b></a> , supervised by Dr.  <a style="color: var(--link-blue)" href="https://tonghe90.github.io/"><b>Tong He</b></a>. Prior to this, I received my Bachelor of Computer Science and Technology  at <a style="color: var(--link-blue)" href="http://en.xjtu.edu.cn/"><b>Xi'an Jiaotong University</b></a>  in 2024.
+        <br>
+        <br>My research interests lie in
+        <b>4D World Modeling & Video Generation</b> and
+        <b>3D/4D Reconstruction</b>. 
+        <br><span style="font-size: 1em; color: var(--accent-orange)"><b>Feel free to drop an email to yyfz233@gmail.com  to reach out!
+            <i>(discussion, collaboration, etc.)</i></b></span>
+
+        <div class="social-links-container">
+          <!-- Email -->
+          <a class="social-btn" href="mailto:yyfz233@gmail.com">
+            <svg viewBox="0 0 24 24" class="social-icon">
+              <path fill="currentColor"
+                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+            </svg>
+            <span>Email</span>
+          </a>
+
+          <!-- WeChat -->
+          <button class="social-btn" onclick="openWeChatModal()" style="cursor: pointer;">
+            <svg viewBox="0 0 24 24" class="social-icon">
+              <path fill="currentColor"
+                d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z" />
+            </svg>
+            <span>WeChat</span>
+          </button>
+
+          <!-- LinkedIn -->
+          <!-- <a class="social-btn" href="https://www.linkedin.com/" target="_blank">
+            <svg viewBox="0 0 24 24" class="social-icon">
+              <path fill="currentColor"
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9H12.909v1.632h.05c.495-.939 1.706-1.929 3.515-1.929 3.76 0 4.455 2.475 4.455 5.694v6.055zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+            <span>Linkedin</span>
+          </a> -->
+
+          <!-- X / Twitter -->
+          <a class="social-btn" href="https://x.com/yyfz321021" target="_blank">
+            <svg viewBox="0 0 24 24" class="social-icon">
+              <path fill="currentColor"
+                d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+            </svg>
+            <span>X</span>
+          </a>
+
+          <!-- Google Scholar -->
+          <a class="social-btn"
+            href="https://scholar.google.com/citations?user=Ll046DsAAAAJ&hl=en"
+            target="_blank">
+            <svg viewBox="0 0 24 24" class="social-icon">
+              <path fill="currentColor"
+                d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z" />
+            </svg>
+            <span>Google Scholar</span>
+          </a>
+
+          <!-- Github -->
+          <a class="social-btn" href="https://github.com/yyfz" target="_blank">
+            <svg viewBox="0 0 24 24" class="social-icon">
+              <path fill="currentColor"
+                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.419-1.305.763-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+            </svg>
+            <span>Github</span>
+          </a>
+
+        </div>
+
+        <div class="news-section">
+          <div class="news-header expanded" onclick="toggleNews()">
+            <span class="news-header-icon">📢</span>
+            <span class="news-header-title">News</span>
+            <span class="news-header-toggle">▼</span>
+          </div>
+          <div id="news-content" class="news-content show">
+            <div class="news-list">
+              <div class="news-item">
+                <span class="news-date">Feb 2026</span>
+                <span class="news-text">🎉 <b>One Paper</b>: G<sup>2</sup>VLM (Geometry Grounded Vision Language Model) is accepted by <b>CVPR 2026</b>.</span>
+              </div>
+              <div class="news-item">
+                <span class="news-date">Jan 2026</span>
+                <span class="news-text">🎉 <b>Three Papers</b>: OmniWorld, π<sup>3</sup>, and WinT3R are accepted by <b>ICLR 2026</b>.</span>
+              </div>
+              <div class="news-item">
+                <span class="news-date">Oct 2025</span>
+                <span class="news-text">🏆 Aether won the <b>Best Paper</b> on workshop on <b>ICCV 2025</b> Reliable and Interactive World Models (RIWM).</span>
+              </div>
+              <div class="news-item">
+                <span class="news-date">Jul 2025</span>
+                <span class="news-text">🎉 <b>One Paper</b>: Aether is accepted by <b>ICCV 2025</b>.</span>
+              </div>
+              <div class="news-item">
+                <span class="news-date">Jan 2025</span>
+                <span class="news-text">🎉 <b>One Paper</b>: ND-SDF is accepted by <b>ICLR 2025</b> as a <b>Spotlight</b>.</span>
+              </div>
+              <div class="news-item">
+                <span class="news-date">Sep 2024</span>
+                <span class="news-text">🎉 <b>One Paper</b>: NeuRodin is accepted by <b>NeurIPS 2024</b>.</span>
+              </div>
+              <div class="news-item">
+                <span class="news-date">Jan 2024</span>
+                <span class="news-text">🎉 <b>Two Papers</b>: GigaGS is accepted by <b>AAAI 2024</b> and PGSR is accepted by <b>TVCG 2024</b>.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <br>
+    </div>
+
+
+    <div class="w3-container w3-card w3-white w3-margin-bottom" id="publications">
+      <h2><b>Publications</b></h2>
+
+      <div class="filter-container">
+        <button id="filter-all" class="filter-btn active" onclick="filterPubs('all', this)">Full List</button>
+        <button id="filter-key" class="filter-btn" onclick="filterPubs('key', this)">Key Contributor</button>
+        <button id="filter-first" class="filter-btn" onclick="filterPubs('first', this)">First Author</button>
+      </div>
+
+      <span style="font-size: 0.9em">( <span style="color: #bf0000"><b>*</b></span> equal contribution, <span
+          style="color: #bf0000"><b>&dagger;</b></span> corresponding authors )</span>
+
+      <div id="pub-list" class="pub-container">
+        <!-- Publications will be rendered here by JavaScript -->
+      </div>
+      <br>
+    </div>
+
+
+    <div class="w3-container w3-card w3-white w3-margin-bottom" id="experiences">
+      <h2><b>Experiences</b></h2>
+      <div class="exp-item">
+        <div class="exp-logo"><img src="data/logos/SHAILab.png"></div>
+        <div class="exp-content">
+          <div class="exp-title">Shanghai AI Laboratory</div>
+          <div class="exp-info">Research Intern <b><a style="color: var(--accent-orange)"></b></div>
+          <div class="exp-info">Topic: 3D Reconstruction, Video Generation and World Model</div>
+          <div class="exp-info">Mentor: Dr. <a style="color: var(--link-blue)"
+              href="https://tonghe90.github.io/"><b>Tong He</b></a></div>
+        </div>
+        <div class="exp-meta">
+          <div class="exp-location">Shanghai, China</div>
+          <div class="exp-date">Aug, 2023 - Now</div>
+        </div>
+      </div>
+      <br>
+    </div>
+
+    <!-- Pronunciation section handled inline in Biography -->
+
+    <script>
+      // Avatar Carousel - syncs all carousels on page
+      // Initialize to last slide (newest photo - 2026)
+      let currentAvatarIndex = 2;
+
+      function updateNavButtons() {
+        const carousels = document.querySelectorAll('.avatar-carousel');
+        carousels.forEach(carousel => {
+          const slides = carousel.querySelectorAll('.carousel-slide');
+          const prevBtn = carousel.querySelector('.carousel-nav.prev');
+          const nextBtn = carousel.querySelector('.carousel-nav.next');
+
+          if (prevBtn) prevBtn.style.display = currentAvatarIndex === 0 ? 'none' : 'flex';
+          if (nextBtn) nextBtn.style.display = currentAvatarIndex === slides.length - 1 ? 'none' : 'flex';
+        });
+      }
+
+      function changeAvatar(direction) {
+        const carousels = document.querySelectorAll('.avatar-carousel');
+        const totalSlides = carousels[0].querySelectorAll('.carousel-slide').length;
+
+        // Update index
+        currentAvatarIndex = currentAvatarIndex + direction;
+        currentAvatarIndex = Math.max(0, Math.min(currentAvatarIndex, totalSlides - 1));
+
+        // Sync all carousels
+        carousels.forEach(carousel => {
+          const slides = carousel.querySelectorAll('.carousel-slide');
+          slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === currentAvatarIndex);
+          });
+        });
+
+        updateNavButtons();
+      }
+
+      // Initialize nav buttons on page load
+      document.addEventListener('DOMContentLoaded', updateNavButtons);
+
+      function openWeChatModal() {
+        document.getElementById('wechat-modal').style.display = 'flex';
+      }
+
+      function closeWeChatModal(event, force) {
+        if (force || event.target.id === 'wechat-modal') {
+          document.getElementById('wechat-modal').style.display = 'none';
+        }
+      }
+
+      function togglePronunciation() {
+        const panel = document.getElementById('pronunciation-panel');
+        panel.classList.toggle('show');
+      }
+
+      function toggleNews() {
+        const header = document.querySelector('.news-header');
+        const content = document.getElementById('news-content');
+        header.classList.toggle('expanded');
+        content.classList.toggle('show');
+      }
+
+      function filterPubs(tag, btn) {
+        // Update active button
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderPubs(tag);
+      }
+
+      function renderPubs(filterTag) {
+        const container = document.getElementById('pub-list');
+        container.innerHTML = '';
+
+        const filtered = filterTag === 'all'
+          ? publications
+          : publications.filter(p => p.tags.includes(filterTag));
+
+        filtered.forEach((pub, index) => {
+          const card = document.createElement('article');
+          card.className = 'pub-card fade-in';
+          card.style.animationDelay = `${index * 0.05}s`;
+
+          // Venue highlight logic
+          const isSubmission = pub.venue.toLowerCase().includes('in submission');
+          const venueClass = isSubmission ? 'pub-venue' : 'pub-venue venue-highlight';
+
+          // Process authors to add highlights
+          const styledAuthors = pub.authors.split(',').map(author => {
+            const trimmed = author.trim();
+            const isMe = trimmed.includes('Yifan Wang');
+            const isCoFirst = trimmed.includes('*');
+
+            if (isMe) {
+              return `<span class="author-name author-me">${trimmed}</span>`;
+            } else if (isCoFirst) {
+              return `<span class="author-name author-co-first">${trimmed}</span>`;
+            } else {
+              return `<span class="author-default">${trimmed}</span>`;
+            }
+          }).join(', ');
+
+          let linksHtml = '';
+          if (pub.links) {
+            Object.entries(pub.links).forEach(([label, url]) => {
+              if (url !== 'TODO' && label !== 'huggingface_text' && label !== 'github_repo') {
+                if (label === 'scholar') {
+                  const pubCitationId = url.split('citation_for_view=')[1];
+                  if (pubCitationId) {
+                    linksHtml += `<a href="${url}"><img
+        src="https://img.shields.io/endpoint?logo=Google%20Scholar&url=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2Fyyfz%2Fyyfz.github.io@google-scholar-stats%2F${pubCitationId}_shieldsio.json&labelColor=ffffff&color=5383ec&style=plastic&label=Citations"></a>`;
+                  } else {
+                    linksHtml += `<a href="${url}">[Scholar]</a>`;
+                  }
+                } else if (label === 'github' && url.includes('github.com')) {
+                  const repo = pub.links.github_repo || url.split('github.com/')[1];
+                  linksHtml += `<a href="${url}"><img src="https://img.shields.io/github/stars/${repo}?v=1"></a>`;
+                } else if (label === 'huggingface') {
+                  const text = pub.links.huggingface_text || "Paper";
+                  const encodedText = encodeURIComponent(text);
+                  linksHtml += `<a href="${url}"><img
+        src="https://img.shields.io/badge/Daily Paper-${encodedText}-FFD21E?logo=huggingface"></a>`;
+                } else {
+                  linksHtml += `<a href="${url}">${label.charAt(0).toUpperCase() + label.slice(1)}</a>`;
+                }
+              }
+            });
+          }
+
+          card.innerHTML = `
+    <div class="pub-image">
+      <img src="${pub.image}" alt="${pub.title}" loading="lazy">
+    </div>
+    <div class="pub-content">
+      <span class="pub-title">${pub.title}</span>
+      <div class="pub-venue-row">
+        <span class="${venueClass}">${pub.venue}</span>
+        ${pub.achievements ? `<span class="pub-achievements"> ${pub.achievements}</span>` : ''}
+      </div>
+      <div class="pub-authors">${styledAuthors}</div>
+      <div class="pub-links">${linksHtml}</div>
+    </div>
+    `;
+          container.appendChild(card);
+        });
+      }
+
+      // Initial render
+      document.addEventListener('DOMContentLoaded', () => {
+        if (typeof publications !== 'undefined') {
+          // Show counts first, then async load citations
+          updateFilterButtonsCounts();
+          fetchAndUpdateCitations();
+          renderPubs('all');
+        } else {
+          console.error("Publications data not loaded!");
+        }
+      });
+
+      function updateFilterButtonsCounts() {
+        const allCount = publications.length;
+        const keyCount = publications.filter(p => p.tags.includes('key')).length;
+        const firstCount = publications.filter(p => p.tags.includes('first')).length;
+
+        const formatStats = (papers, cites = '...') =>
+          `<span style="opacity:0.7">(</span><span style="color:var(--accent-orange);font-weight:800">${papers}</span><span
+      style="opacity:0.7"> papers | </span><span style="color:var(--accent-orange);font-weight:800">${cites}</span><span
+      style="opacity:0.7"> cites)</span>`;
+
+        document.getElementById('filter-all').innerHTML =
+          `Full List ${formatStats(allCount)}`;
+        document.getElementById('filter-key').innerHTML =
+          `Key Contributor ${formatStats(keyCount)}`;
+        document.getElementById('filter-first').innerHTML =
+          `First Author ${formatStats(firstCount)}`;
+      }
+
+      async function fetchAndUpdateCitations() {
+        const baseUrl = 'https://cdn.jsdelivr.net/gh/yyfz/yyfz.github.io@google-scholar-stats/';
+
+        // Fetch citation for each publication that has a scholar link
+        const citationPromises = publications.map(async (pub) => {
+          if (pub.links && pub.links.scholar && pub.links.scholar !== 'TODO') {
+            const match = pub.links.scholar.match(/citation_for_view=([^&]+)/);
+            if (match) {
+              const pubId = match[1];
+              try {
+                const response = await fetch(`${baseUrl}${pubId}_shieldsio.json`);
+                if (response.ok) {
+                  const data = await response.json();
+                  pub.citations = parseInt(data.message) || 0;
+                  return pub.citations;
+                }
+              } catch (e) {
+                console.warn(`Failed to fetch citation for ${pub.id}:`, e);
+              }
+            }
+          }
+          pub.citations = 0;
+          return 0;
+        });
+
+        await Promise.all(citationPromises);
+
+        // Now update buttons with citation sums
+        const keyPubs = publications.filter(p => p.tags.includes('key'));
+        const firstPubs = publications.filter(p => p.tags.includes('first'));
+
+        const allCitations = publications.reduce((sum, p) => sum + (p.citations || 0), 0);
+        const keyCitations = keyPubs.reduce((sum, p) => sum + (p.citations || 0), 0);
+        const firstCitations = firstPubs.reduce((sum, p) => sum + (p.citations || 0), 0);
+
+
+        const formatStats = (papers, cites) =>
+          `<span style="opacity:0.7">(</span><span style="color:var(--accent-orange);font-weight:800">${papers}</span><span
+      style="opacity:0.7"> papers | </span><span style="color:var(--accent-orange);font-weight:800">${cites}</span><span
+      style="opacity:0.7"> cites)</span>`;
+
+        document.getElementById('filter-all').innerHTML =
+          `Full List ${formatStats(publications.length, allCitations)}`;
+        document.getElementById('filter-key').innerHTML =
+          `Key Contributor ${formatStats(keyPubs.length, keyCitations)}`;
+        document.getElementById('filter-first').innerHTML =
+          `First Author ${formatStats(firstPubs.length, firstCitations)}`;
+      }
+    </script>
+
+    <script type='text/javascript' id='clustrmaps'
+      src='//cdn.clustrmaps.com/map_v2.js?cl=080f37&w=300&t=tt&d=UjXhcvu-8_Cjo-HXyQHhyJzJuenCBLSD38-lms7aZHE&co=fafbff&cmn=e86252&cmo=92a1c2&ct=2f365b'></script>
+
+  </div>
+  </div>
+
+  <!-- WeChat Modal -->
+  <div id="wechat-modal" class="modal" onclick="closeWeChatModal(event)">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeWeChatModal(event, true)">&times;</span>
+      <img src="data/others/Wechat.jpg" alt="WeChat QR Code" style="width:100%;max-width:400px;border-radius:12px;">
+      <p style="text-align:center;color:var(--deep-navy);margin-top:10px;font-weight:700;">Scan to add me on WeChat</p>
+    </div>
+  </div>
+
+  <!-- Smart Navigation Layout Detection -->
+  <script>
+    // Detect if sidebar content fits within viewport height
+    // If not, switch to top navigation layout
+
+    function checkSidebarFit() {
+      const sidebar = document.getElementById('mySidebar');
+      const viewportHeight = window.innerHeight;
+      const viewportWidth = window.innerWidth;
+
+      // Skip on very small screens (nav is hidden anyway)
+      if (viewportWidth < 768) {
+        document.body.classList.remove('use-top-nav');
+        return;
+      }
+
+      // Skip if in media query triggered top nav mode (768-992px width)
+      if (viewportWidth >= 768 && viewportWidth <= 992) {
+        return; // Let media query handle this
+      }
+
+      if (!sidebar) return;
+
+      // First, ensure we're in sidebar mode to measure correctly
+      document.body.classList.remove('use-top-nav');
+
+      // Wait for layout to fully update (longer delay for CSS transition)
+      setTimeout(() => {
+        // Method: Calculate actual content height by finding the bottom of the last child
+        // Include margins to ensure nothing is cut off
+        const sidebarRect = sidebar.getBoundingClientRect();
+        let contentHeight = 0;
+
+        const children = sidebar.children;
+        for (let i = 0; i < children.length; i++) {
+          const child = children[i];
+          const rect = child.getBoundingClientRect();
+          const style = getComputedStyle(child);
+          const marginBottom = parseFloat(style.marginBottom) || 0;
+          const childBottom = rect.bottom - sidebarRect.top + marginBottom;
+          if (childBottom > contentHeight) {
+            contentHeight = childBottom;
+          }
+        }
+
+        // Add a safety buffer to ensure nothing gets clipped
+        const safetyBuffer = 10;
+        contentHeight += safetyBuffer;
+
+        const availableHeight = sidebar.clientHeight;
+
+        // Debug info - check values in browser console (F12)
+        console.log('Viewport:', viewportWidth, 'x', viewportHeight,
+          'Content:', Math.round(contentHeight), 'Available:', availableHeight,
+          'Decision:', contentHeight > availableHeight ? 'TOP NAV' : 'SIDEBAR');
+
+        // If content is taller than available space, switch to top nav
+        if (contentHeight > availableHeight) {
+          document.body.classList.add('use-top-nav');
+        }
+      }, 50);
+    }
+
+    // Run on page load with delay
+    window.addEventListener('load', () => {
+      setTimeout(checkSidebarFit, 100);
+    });
+
+    // Run on window resize with debounce
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(checkSidebarFit, 150);
+    });
+
+    // Also run after fonts load
+    if (document.fonts) {
+      document.fonts.ready.then(() => setTimeout(checkSidebarFit, 100));
+    }
+  </script>
+
+</body>
+
+</html>
