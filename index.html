@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <meta charset="UTF-8">
   <title>Yifan Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Yifan Wang - Ph.D. student at Shanghai Jiao Tong University.">
@@ -400,6 +401,64 @@
       font-weight: 700;
       font-size: 0.85em;
       display: inline-block;
+    }
+
+    .pub-achievements-featured {
+      background: linear-gradient(135deg, #f0a53a 0%, var(--accent-orange) 55%, #cf4e3c 100%);
+      box-shadow: 0 8px 18px rgba(232, 98, 82, 0.28);
+    }
+
+    .pub-achievement-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .pub-achievement-trigger {
+      cursor: zoom-in;
+    }
+
+    .pub-achievement-preview {
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      width: min(360px, 80vw);
+      padding: 8px;
+      border-radius: 12px;
+      background: white;
+      border: 1px solid rgba(47, 54, 90, 0.12);
+      box-shadow: 0 18px 40px rgba(47, 54, 90, 0.2);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px) scale(0.98);
+      transform-origin: top right;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 30;
+    }
+
+    .pub-achievement-preview::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      right: 18px;
+      width: 14px;
+      height: 14px;
+      background: white;
+      border-top: 1px solid rgba(47, 54, 90, 0.12);
+      border-left: 1px solid rgba(47, 54, 90, 0.12);
+      transform: rotate(45deg);
+    }
+
+    .pub-achievement-wrap:hover .pub-achievement-preview,
+    .pub-achievement-wrap:focus-within .pub-achievement-preview {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .pub-achievement-preview img {
+      display: block;
+      width: 100%;
+      border-radius: 8px;
     }
 
     .pub-authors {
@@ -1309,6 +1368,37 @@
       border-left-color: var(--accent-orange);
     }
 
+    .news-item-featured {
+      background: linear-gradient(135deg, rgba(240, 165, 58, 0.14), rgba(232, 98, 82, 0.08));
+      border: 1px solid rgba(232, 98, 82, 0.18);
+      border-left: 3px solid var(--accent-orange);
+      box-shadow: 0 10px 24px rgba(47, 54, 90, 0.08);
+    }
+
+    .news-item-featured:hover {
+      background: linear-gradient(135deg, rgba(240, 165, 58, 0.18), rgba(232, 98, 82, 0.1));
+      border-left-color: var(--deep-navy);
+    }
+
+    .news-item-featured .news-date {
+      background: linear-gradient(135deg, var(--deep-navy), #39548f);
+      color: white;
+      box-shadow: 0 8px 16px rgba(31, 64, 122, 0.18);
+    }
+
+    .news-feature-badge {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: rgba(31, 64, 122, 0.08);
+      color: var(--deep-navy);
+      font-size: 0.82em;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      vertical-align: middle;
+    }
+
     .news-date {
       flex-shrink: 0;
       background: var(--bg-author);
@@ -1476,6 +1566,10 @@
           </div>
           <div id="news-content" class="news-content show">
             <div class="news-list">
+              <div class="news-item news-item-featured">
+                <span class="news-date">Apr 2026</span>
+                <span class="news-text">🏆 <b>π<sup>3</sup></b> is selected as <b>China3DV 2026 Top 1 Paper</b> <span class="news-feature-badge">1 / 154</span>.</span>
+              </div>
               <div class="news-item">
                 <span class="news-date">Feb 2026</span>
                 <span class="news-text">🎉 <b>One Paper</b>: G<sup>2</sup>VLM (Geometry Grounded Vision Language Model) is accepted by <b>CVPR 2026</b>.</span>
@@ -1497,12 +1591,16 @@
                 <span class="news-text">🎉 <b>One Paper</b>: ND-SDF is accepted by <b>ICLR 2025</b> as a <b>Spotlight</b>.</span>
               </div>
               <div class="news-item">
+                <span class="news-date">Dec 2024</span>
+                <span class="news-text">🎉 <b>One Paper</b>: GigaGS is accepted by <b>AAAI 2025</b>.</span>
+              </div>
+              <div class="news-item">
                 <span class="news-date">Sep 2024</span>
                 <span class="news-text">🎉 <b>One Paper</b>: NeuRodin is accepted by <b>NeurIPS 2024</b>.</span>
               </div>
               <div class="news-item">
-                <span class="news-date">Jan 2024</span>
-                <span class="news-text">🎉 <b>Two Papers</b>: GigaGS is accepted by <b>AAAI 2024</b> and PGSR is accepted by <b>TVCG 2024</b>.</span>
+                <span class="news-date">Jul 2024</span>
+                <span class="news-text">🎉 <b>One Paper</b>: PGSR is accepted by <b>TVCG 2024</b>.</span>
               </div>
             </div>
           </div>
@@ -1653,6 +1751,18 @@
             }
           }).join(', ');
 
+          let achievementsHtml = '';
+          if (pub.achievements) {
+            const achievementClasses = ['pub-achievements'];
+            if (pub.achievementFeatured) achievementClasses.push('pub-achievements-featured');
+
+            const badgeHtml = `<span class="${achievementClasses.join(' ')}${pub.achievementImage ? ' pub-achievement-trigger' : ''}"${pub.achievementImage ? ' tabindex="0"' : ''}>${pub.achievements}</span>`;
+
+            achievementsHtml = pub.achievementImage
+              ? `<span class="pub-achievement-wrap">${badgeHtml}<span class="pub-achievement-preview" role="tooltip"><img src="${pub.achievementImage}" alt="${pub.achievementAlt || pub.achievements}" loading="lazy"></span></span>`
+              : badgeHtml;
+          }
+
           let linksHtml = '';
           if (pub.links) {
             Object.entries(pub.links).forEach(([label, url]) => {
@@ -1688,7 +1798,7 @@
       <span class="pub-title">${pub.title}</span>
       <div class="pub-venue-row">
         <span class="${venueClass}">${pub.venue}</span>
-        ${pub.achievements ? `<span class="pub-achievements"> ${pub.achievements}</span>` : ''}
+        ${achievementsHtml}
       </div>
       <div class="pub-authors">${styledAuthors}</div>
       <div class="pub-links">${linksHtml}</div>
