@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Warp-as-History routes camera-induced warps through a pretrained video model's native history pathway for low-resource camera-controlled video generation."
+    />
+    <title>Warp-as-History</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23080807'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Georgia,serif' font-size='34' fill='%23f7f2e9'%3EW%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles.css?v=hero-prerender" />
+  </head>
+  <body>
+    <header class="site-nav" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Warp-as-History home">Warp-as-History</a>
+      <nav class="nav-links" aria-label="Page sections">
+        <a href="#abstract">Abstract</a>
+        <a href="#demos">Demos</a>
+        <a href="#diverse">Diverse</a>
+        <a href="#method">Method</a>
+        <a href="#citation">Citation</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero is-prerendered" aria-label="Paper hero">
+        <video
+          id="heroPrerendered"
+          class="hero-prerendered is-active"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          poster="demo/hero_montage_preview_poster.jpg?v=full-segments"
+        >
+          <source src="demo/hero_montage_preview.mp4?v=full-segments" type="video/mp4" />
+        </video>
+        <div
+          id="heroBackdropA"
+          class="hero-backdrop is-active"
+          style="background-image: url('demo/%E6%95%85%E5%AE%AB%E9%BE%99__mg10_feedbackfix_v5/first_frame.png')"
+        ></div>
+        <div id="heroBackdropB" class="hero-backdrop"></div>
+        <div id="heroMosaicA" class="hero-mosaic is-active" aria-hidden="true"></div>
+        <div id="heroMosaicB" class="hero-mosaic" aria-hidden="true"></div>
+        <div class="hero-overlay" aria-hidden="true"></div>
+
+        <div class="hero-content">
+          <p class="eyebrow">Video History is More Than Context.</p>
+          <h1>
+            <span class="title-lead title-mark">Warp-as-History</span>
+            <span class="title-rest">Generalizable Camera-Controlled Video Generation</span>
+            <span class="title-tail">from <span class="title-highlight">One</span> Training Video</span>
+          </h1>
+          <p class="authors">
+            <a href="https://yyfz.github.io/" target="_blank" rel="noreferrer">Yifan Wang</a><sup>1,2</sup>
+            and
+            <a href="https://tonghe90.github.io/" target="_blank" rel="noreferrer">Tong He</a><sup>2,3</sup>
+          </p>
+          <p class="affiliations">
+            <span><sup>1</sup> Shanghai Jiao Tong University</span>
+            <span><sup>2</sup> Shanghai AI Laboratory</span>
+            <span><sup>3</sup> Shanghai Innovation Institute</span>
+          </p>
+          <p class="hero-lead">
+            Warp-as-History enables near real-time camera trajectory following and viewpoint manipulation,
+            similar to HappyOyster and Genie 3, using only a single camera-annotated training example.
+          </p>
+          <div class="hero-actions" aria-label="Quick links">
+            <a
+              class="button button-resource"
+              href="https://github.com/yyfz/Warp-as-History"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open paper"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z" />
+                <path d="M14 2v5h5" />
+                <path d="M9 13h6" />
+                <path d="M9 17h4" />
+              </svg>
+              <span>Paper</span>
+            </a>
+            <a
+              class="button button-resource"
+              href="https://github.com/yyfz/Warp-as-History"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open code"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m16 18 6-6-6-6" />
+                <path d="m8 6-6 6 6 6" />
+                <path d="m14 4-4 16" />
+              </svg>
+              <span>Code</span>
+            </a>
+            <a class="button button-resource" href="#demos" aria-label="Watch demos">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 5.6a2 2 0 0 1 2.95-1.76l10.2 5.65a2 2 0 0 1 0 3.5l-10.2 5.65A2 2 0 0 1 5 16.9z" />
+              </svg>
+              <span>Demos</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-meta" aria-label="Project highlights">
+          <span>Camera-warped pseudo-history</span>
+          <span>Zero-shot camera-follow prior</span>
+          <span>One-video LoRA finetuning</span>
+        </div>
+      </section>
+
+      <section class="intro-band" id="abstract">
+        <div class="content-grid">
+          <div class="section-label">Abstract</div>
+          <div class="intro-copy">
+            <h2>Video history is more than context. It can be a camera-control interface.</h2>
+            <p>
+              Warp-as-History asks whether a pretrained history-conditioned video generator can follow a
+              target camera trajectory without a new camera encoder, control branch, or test-time optimization.
+              The answer is to convert camera-induced warps into camera-warped pseudo-history, align those
+              history tokens to the target frames being denoised, and drop tokens that do not have valid source
+              observations.
+            </p>
+            <p>
+              The same interface reveals non-trivial zero-shot camera-following behavior in the frozen model.
+              A lightweight offline LoRA update on one separate camera-annotated video then stabilizes this
+              behavior across unseen scenes and trajectories, improving camera adherence, visual quality, and
+              motion dynamics without target-video adaptation.
+            </p>
+          </div>
+        </div>
+        <div class="highlight-row claim-row" aria-label="Core properties">
+          <article>
+            <span class="claim-kicker">Native interface</span>
+            <h3>No added camera-control module</h3>
+            <p>
+              Camera-induced warps are packed as visual history, so control enters through the pathway the
+              backbone already uses to continue video.
+            </p>
+          </article>
+          <article>
+            <span class="claim-kicker">Low-resource finetuning</span>
+            <h3>One separate video stabilizes the exposed prior</h3>
+            <p>
+              The offline LoRA update calibrates when to follow visible warp evidence and when to rely on
+              the generator for completion and motion.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="demo-section" id="demos">
+        <div class="section-heading">
+          <div class="section-label">Results</div>
+          <div>
+            <h2>Unseen scenes, prescribed camera paths, direct rollouts.</h2>
+            <p>
+              Each demo is driven by a target camera trajectory and rendered with the same direct sampler used
+              by the pretrained backbone. The main wall shows one representative per scene; repeated
+              first-frame groups are collected below to make the trajectory effect easier to compare.
+            </p>
+          </div>
+        </div>
+
+        <div class="demo-stage" aria-label="Expanded demo playback">
+          <div class="stage-media">
+            <video
+              id="stageVideo"
+              muted
+              loop
+              playsinline
+              autoplay
+              controls
+              poster="demo/%E6%95%85%E5%AE%AB%E9%BE%99__mg10_feedbackfix_v5/first_frame.png"
+            >
+              <source src="demo/%E6%95%85%E5%AE%AB%E9%BE%99__mg10_feedbackfix_v5/demo_video.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="stage-copy">
+            <p class="eyebrow">Expanded playback</p>
+            <h3 id="stageTitle">Dragon in the Forbidden City</h3>
+            <p id="stagePrompt">
+              Continue from the first frame. The vast square of the Forbidden City at dawn remains quiet and
+              solemn, with ancient red walls, golden roofs, white stone terraces, and soft morning haze. A
+              majestic Chinese dragon rests across the palace courtyard, its long serpentine body coiled over
+              the stone ground, with shimmering scales, flowing whiskers, and an ancient ceremonial presence.
+              The dragon should feel noble, powerful, and mythical. Dust drifts across the square, scales glint
+              in the soft light, banners and fabric edges move gently in the wind, and the dragon’s body shows
+              faint breathing or small graceful movements, as if it is slowly awakening. The atmosphere should
+              feel solemn, mythical, and emotionally striking, as if legend has appeared in the heart of the
+              imperial palace. Keep the world immersive and explorable, with camera movement. Cinematic, highly
+              detailed, soft morning light, mysterious but believable, no text, no watermark.
+            </p>
+            <button class="prompt-action" id="stagePromptAction" type="button" hidden>Full prompt</button>
+            <div class="speed-control" id="stageSpeedControl" aria-label="Main playback speed">
+              <span>Speed</span>
+              <button type="button" data-speed="0.5">0.5x</button>
+              <button type="button" data-speed="1" class="is-active">1x</button>
+              <button type="button" data-speed="1.5">1.5x</button>
+              <button type="button" data-speed="2">2x</button>
+            </div>
+            <div class="stage-facts" aria-label="Expanded demo facts">
+              <span id="stageFrames">429 frames</span>
+              <span id="stageSeed">seed 42</span>
+              <span id="stageScene">Forbidden City dragon</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-wall" id="demoGrid" aria-live="polite"></div>
+
+        <div class="diverse-section" id="diverse">
+          <div class="section-heading">
+            <div class="section-label">Diverse trajectories</div>
+            <div>
+              <h2>Same first frame, different camera histories.</h2>
+              <p>
+                These groups keep the source frame and prompt fixed while changing the target camera path.
+                The goal is to show that the history cue steers where the viewpoint moves, while the
+                pretrained generator still completes disocclusions and independent scene motion.
+              </p>
+            </div>
+          </div>
+          <div class="diverse-stage" aria-label="Diverse trajectory playback">
+            <div class="diverse-stage-media">
+              <video id="diverseStageVideo" muted loop playsinline autoplay controls></video>
+            </div>
+            <div class="diverse-stage-copy">
+              <p class="eyebrow">Trajectory display</p>
+              <h3 id="diverseStageTitle">Diverse trajectory</h3>
+              <p id="diverseStagePrompt"></p>
+              <button class="prompt-action" id="diverseStagePromptAction" type="button" hidden>Full prompt</button>
+              <div class="speed-control" id="diverseSpeedControl" aria-label="Diverse playback speed">
+                <span>Speed</span>
+                <button type="button" data-speed="0.5">0.5x</button>
+                <button type="button" data-speed="1" class="is-active">1x</button>
+                <button type="button" data-speed="1.5">1.5x</button>
+                <button type="button" data-speed="2">2x</button>
+              </div>
+              <div class="stage-facts" aria-label="Diverse trajectory facts">
+                <span id="diverseStageFrames">429 frames</span>
+                <span id="diverseStageSeed">seed 42</span>
+                <span id="diverseStageScene">1950s diner</span>
+              </div>
+            </div>
+          </div>
+          <div class="diverse-groups" id="diverseGroups" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="method-section" id="method">
+        <div class="method-intro">
+          <div class="section-label">Method</div>
+          <h2>Route the warp through the native history stream.</h2>
+          <p>
+            Warp-as-History does not treat the warp as a hard render target. It presents reliable geometric
+            evidence through the model's visual-history pathway, aligns that evidence to the current denoising
+            window, and lets the pretrained prior handle disocclusion, refinement, and dynamic foregrounds.
+          </p>
+        </div>
+        <div class="method-steps" aria-label="Method steps">
+          <article>
+            <span>01</span>
+            <h3>Camera-warped pseudo-history</h3>
+            <p>Render the available observation under the target camera trajectory and pack it as ordinary visual history.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Target-frame alignment</h3>
+            <p>Keep the warp in the history stream, but assign its temporal positions to the matching target frames.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Visible-token selection</h3>
+            <p>Drop invalid warp tokens so newly visible or unreliable regions are completed by the generator.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>One-video finetuning</h3>
+            <p>Use a lightweight offline LoRA update to stabilize the exposed camera-follow behavior across unseen videos.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="citation-section" id="citation">
+        <div>
+          <div class="section-label">Citation</div>
+          <h2>Cite Warp-as-History</h2>
+        </div>
+        <pre><code>@misc{wang2026warpashistory,
+  title  = {Warp-as-History: Generalizable Camera-Controlled Video Generation from One Training Video},
+  author = {Wang, Yifan and He, Tong},
+  year   = {2026}
+}</code></pre>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Warp-as-History</span>
+      <span>Shanghai Jiao Tong University / Shanghai AI Laboratory / Shanghai Innovation Institute</span>
+    </footer>
+
+    <div class="prompt-modal" id="promptModal" aria-hidden="true">
+      <button class="modal-backdrop" type="button" aria-label="Close prompt"></button>
+      <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow" id="modalScene">Generated sequence</p>
+            <h2 id="modalTitle">Full prompt</h2>
+          </div>
+          <button class="modal-close" type="button">Close</button>
+        </div>
+        <p id="modalPrompt"></p>
+      </section>
+    </div>
+
+    <script src="script.js?v=hero-prerender" defer></script>
+  </body>
+</html>
