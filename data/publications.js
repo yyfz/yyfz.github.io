@@ -1,5 +1,18 @@
 const publications = [
   {
+    id: 'warp-as-history',
+    title: 'Warp-as-History: Generalizable Camera-Controlled Video Generation from One Training Video',
+    venue: 'Under review',
+    achievements: '',
+    authors: 'Yifan Wang, Tong He',
+    tags: ['first', 'key'],
+    image: 'warp-as-history/demo/github_teaser.jpg',
+    links: {"paper": "https://github.com/yyfz/Warp-as-History",
+      "page": "https://yyfz.github.io/warp-as-history/",
+      "github": "https://github.com/yyfz/Warp-as-History",
+    },
+  },
+  {
     id: 'gvlm',
     title: 'G²VLM: Geometry Grounded Vision Language Model with Unified 3D Reconstruction and Spatial Reasoning',
     venue: 'CVPR 2026',
