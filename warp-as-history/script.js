@@ -291,6 +291,19 @@ function createThumbnailImage(source, alt = "") {
   return image;
 }
 
+function shouldAutoLoadHero() {
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  if (!connection) {
+    return true;
+  }
+
+  if (connection.saveData) {
+    return false;
+  }
+
+  return !["slow-2g", "2g", "3g"].includes(connection.effectiveType);
+}
+
 function getControlSpeed(control) {
   const active = control?.querySelector("button.is-active");
   return Number(active?.dataset.speed || 1);
@@ -612,13 +625,30 @@ function buildHeroMosaic(mosaic, demos, allDemos, count, onPrimaryEnded) {
 function setupHeroPlaylist(demos) {
   const prerendered = document.getElementById("heroPrerendered");
   if (prerendered) {
-    prerendered.playbackRate = 1;
-    const loadPrerendered = () => playDeferredVideo(prerendered);
-    if ("requestIdleCallback" in window) {
-      window.requestIdleCallback(loadPrerendered, { timeout: 1200 });
-    } else {
-      window.setTimeout(loadPrerendered, 650);
-    }
+    const hero = document.querySelector(".hero");
+    let shouldLoad = shouldAutoLoadHero();
+    const loadHero = () => {
+      if (!shouldLoad || document.hidden || !isNearViewport(hero, 0)) {
+        return;
+      }
+      setDeferredVideoSource(prerendered);
+      prerendered.playbackRate = 1;
+      prerendered.play().catch(() => {});
+    };
+
+    window.setTimeout(loadHero, 1400);
+    document.addEventListener("visibilitychange", loadHero);
+    window.addEventListener(
+      "scroll",
+      () => {
+        const heroBottom = hero?.getBoundingClientRect().bottom ?? 0;
+        if (heroBottom < window.innerHeight * 0.35) {
+          shouldLoad = false;
+          prerendered.pause();
+        }
+      },
+      { passive: true },
+    );
     return;
   }
 
