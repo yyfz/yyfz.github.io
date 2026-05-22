@@ -8,11 +8,12 @@
       content="Warp-as-History routes camera-induced warps through a pretrained video model's native history pathway for low-resource camera-controlled video generation."
     />
     <title>Warp-as-History</title>
+    <link rel="preload" href="demo/hero_montage_preview_poster.jpg?v=full-segments" as="image" fetchpriority="high" />
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23080807'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Georgia,serif' font-size='34' fill='%23f7f2e9'%3EW%3C/text%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="styles.css?v=hero-prerender" />
+    <link rel="stylesheet" href="styles.css?v=thumb-images" />
   </head>
   <body>
     <header class="site-nav" aria-label="Primary navigation">
@@ -35,15 +36,14 @@
           muted
           loop
           playsinline
-          preload="auto"
+          preload="none"
           poster="demo/hero_montage_preview_poster.jpg?v=full-segments"
-        >
-          <source src="demo/hero_montage_preview.mp4?v=full-segments" type="video/mp4" />
-        </video>
+          data-src="demo/hero_montage_preview.mp4?v=full-segments"
+        ></video>
         <div
           id="heroBackdropA"
           class="hero-backdrop is-active"
-          style="background-image: url('demo/%E6%95%85%E5%AE%AB%E9%BE%99__mg10_feedbackfix_v5/first_frame.png')"
+          style="background-image: url('demo/%E6%95%85%E5%AE%AB%E9%BE%99__mg10_feedbackfix_v5/first_frame_thumb.jpg')"
         ></div>
         <div id="heroBackdropB" class="hero-backdrop"></div>
         <div id="heroMosaicA" class="hero-mosaic is-active" aria-hidden="true"></div>
@@ -179,10 +179,9 @@
               playsinline
               autoplay
               controls
-              poster="demo/%E6%95%85%E5%AE%AB%E9%BE%99__mg10_feedbackfix_v5/first_frame.png"
-            >
-              <source src="demo/%E6%95%85%E5%AE%AB%E9%BE%99__mg10_feedbackfix_v5/demo_video.mp4" type="video/mp4" />
-            </video>
+              poster="demo/%E6%95%85%E5%AE%AB%E9%BE%99__mg10_feedbackfix_v5/first_frame_thumb.jpg"
+              preload="none"
+            ></video>
           </div>
           <div class="stage-copy">
             <p class="eyebrow">Expanded playback</p>
@@ -322,6 +321,6 @@
       </section>
     </div>
 
-    <script src="script.js?v=hero-prerender" defer></script>
+    <script src="script.js?v=thumb-images" defer></script>
   </body>
 </html>

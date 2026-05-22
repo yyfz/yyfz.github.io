@@ -78,6 +78,10 @@ function encodedPath(path = "") {
   return encodeURI(path);
 }
 
+function thumbnailPath(path = "") {
+  return path.replace(/first_frame\.png$/i, "first_frame_thumb.jpg");
+}
+
 function titleFromItem(item, index = 0) {
   const videoKey = encodedPath(item.demo_video);
   if (titleByVideo.has(videoKey)) {
@@ -188,51 +192,102 @@ async function loadDemos() {
   }
 }
 
-const lazyVideoObserver =
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function isNearViewport(element, margin = 420) {
+  if (!element) {
+    return false;
+  }
+
+  const rect = element.getBoundingClientRect();
+  return rect.top < window.innerHeight + margin && rect.bottom > -margin;
+}
+
+function setDeferredVideoSource(video, source = video.dataset.src) {
+  if (!video || !source) {
+    return false;
+  }
+
+  if (video.dataset.loadedSrc === source) {
+    return false;
+  }
+
+  video.src = source;
+  video.dataset.loadedSrc = source;
+  video.load();
+  return true;
+}
+
+function playDeferredVideo(video, source = video.dataset.src) {
+  if (!video || !source) {
+    return;
+  }
+
+  setDeferredVideoSource(video, source);
+  if (!prefersReducedMotion) {
+    video.play().catch(() => {});
+  }
+}
+
+function resetDeferredVideo(video, source, poster) {
+  if (!video) {
+    return;
+  }
+
+  if (poster) {
+    video.poster = poster;
+  }
+  video.dataset.src = source;
+
+  if (video.dataset.loadedSrc !== source) {
+    video.pause();
+    video.removeAttribute("src");
+    delete video.dataset.loadedSrc;
+    video.load();
+  }
+}
+
+const stageVideoObserver =
   "IntersectionObserver" in window
     ? new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            const video = entry.target;
+            const video = entry.target.querySelector("video");
+            if (!video) {
+              return;
+            }
+
             if (entry.isIntersecting) {
-              if (!video.src && video.dataset.src) {
-                video.src = video.dataset.src;
-                video.load();
-              }
-              video.play().catch(() => {});
+              playDeferredVideo(video);
             } else {
               video.pause();
             }
           });
         },
-        { rootMargin: "320px 0px", threshold: 0.02 },
+        { rootMargin: "360px 0px", threshold: 0.01 },
       )
     : null;
 
-function observeLazyVideo(video) {
-  if (lazyVideoObserver) {
-    lazyVideoObserver.observe(video);
+function observeStagePlayback(stage) {
+  if (!stage) {
     return;
   }
 
-  if (!video.src && video.dataset.src) {
-    video.src = video.dataset.src;
-    video.load();
+  if (stageVideoObserver) {
+    stageVideoObserver.observe(stage);
+  } else if (isNearViewport(stage)) {
+    const video = stage.querySelector("video");
+    playDeferredVideo(video);
   }
-  video.play().catch(() => {});
 }
 
-function createVideo(source, poster, controls = false) {
-  const video = document.createElement("video");
-  video.dataset.src = source;
-  video.poster = poster;
-  video.muted = true;
-  video.loop = true;
-  video.playsInline = true;
-  video.autoplay = false;
-  video.preload = "none";
-  video.controls = controls;
-  return video;
+function createThumbnailImage(source, alt = "") {
+  const image = document.createElement("img");
+  image.src = source;
+  image.alt = alt;
+  image.loading = "lazy";
+  image.decoding = "async";
+  return image;
 }
 
 function getControlSpeed(control) {
@@ -316,12 +371,12 @@ function setStageDemo(demo, index, shouldScroll = false) {
     return;
   }
 
-  video.poster = demo.first_frame;
-  video.src = demo.demo_video;
+  resetDeferredVideo(video, demo.demo_video, thumbnailPath(demo.first_frame));
   syncStageAspect(video, stage);
-  video.load();
   applyPlaybackSpeed(video, speedControl);
-  video.play().catch(() => {});
+  if (shouldScroll || isNearViewport(stage)) {
+    playDeferredVideo(video);
+  }
   title.textContent = demo.title;
   prompt.textContent = shortPrompt(demo.prompt, 560);
   prompt.title = demo.prompt;
@@ -355,12 +410,12 @@ function setDiverseDemo(demo, group, shouldScroll = false) {
     return;
   }
 
-  video.poster = demo.first_frame;
-  video.src = demo.demo_video;
+  resetDeferredVideo(video, demo.demo_video, thumbnailPath(demo.first_frame));
   syncStageAspect(video, stage, "--diverse-stage-aspect");
-  video.load();
   applyPlaybackSpeed(video, speedControl);
-  video.play().catch(() => {});
+  if (shouldScroll || isNearViewport(stage)) {
+    playDeferredVideo(video);
+  }
   title.textContent = `${group.title} - ${demo.variant_label}`;
   prompt.textContent = shortPrompt(demo.prompt, 560);
   prompt.title = demo.prompt;
@@ -557,7 +612,12 @@ function setupHeroPlaylist(demos) {
   const prerendered = document.getElementById("heroPrerendered");
   if (prerendered) {
     prerendered.playbackRate = 1;
-    prerendered.play().catch(() => {});
+    const loadPrerendered = () => playDeferredVideo(prerendered);
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(loadPrerendered, { timeout: 1200 });
+    } else {
+      window.setTimeout(loadPrerendered, 650);
+    }
     return;
   }
 
@@ -676,9 +736,8 @@ function renderGrid(demos) {
 
     const media = document.createElement("div");
     media.className = "card-media";
-    const video = createVideo(demo.demo_video, demo.first_frame);
-    video.setAttribute("aria-label", demo.title);
-    media.append(video);
+    const image = createThumbnailImage(thumbnailPath(demo.first_frame), demo.title);
+    media.append(image);
 
     const copy = document.createElement("div");
     copy.className = "card-copy";
@@ -722,7 +781,6 @@ function renderGrid(demos) {
       }
     });
     grid.append(card);
-    observeLazyVideo(video);
   });
 }
 
@@ -748,7 +806,7 @@ function renderDiverseGroups(groups) {
     const source = document.createElement("div");
     source.className = "source-frame";
     const image = document.createElement("img");
-    image.src = group.first_frame;
+    image.src = thumbnailPath(group.first_frame);
     image.alt = "";
     image.loading = "lazy";
     source.append(image);
@@ -773,17 +831,14 @@ function renderDiverseGroups(groups) {
       card.type = "button";
       card.dataset.variantId = variant.id;
 
-      const video = createVideo(variant.demo_video, variant.first_frame);
-      video.controls = false;
-      video.setAttribute("aria-label", `${group.title}, ${variant.variant_label}`);
+      const image = createThumbnailImage(thumbnailPath(variant.first_frame), `${group.title}, ${variant.variant_label}`);
 
       const caption = document.createElement("span");
       caption.textContent = variant.variant_label;
 
-      card.append(video, caption);
+      card.append(image, caption);
       card.addEventListener("click", () => setDiverseDemo(variant, group, true));
       variants.append(card);
-      observeLazyVideo(video);
     });
 
     board.append(source, header, variants);
@@ -813,6 +868,8 @@ loadDemos().then(({ demos, diverseGroups }) => {
   renderGrid(ordered);
   renderDiverseGroups(diverseGroups);
   setStageDemo(ordered[0], 0);
+  observeStagePlayback(document.querySelector(".demo-stage"));
+  observeStagePlayback(document.querySelector(".diverse-stage"));
 });
 
 document.querySelector(".modal-backdrop")?.addEventListener("click", closePromptModal);
