@@ -283,10 +283,11 @@ function observeStagePlayback(stage) {
 
 function createThumbnailImage(source, alt = "") {
   const image = document.createElement("img");
-  image.src = source;
   image.alt = alt;
   image.loading = "lazy";
   image.decoding = "async";
+  image.fetchPriority = "low";
+  image.src = source;
   return image;
 }
 
@@ -806,9 +807,11 @@ function renderDiverseGroups(groups) {
     const source = document.createElement("div");
     source.className = "source-frame";
     const image = document.createElement("img");
-    image.src = thumbnailPath(group.first_frame);
     image.alt = "";
     image.loading = "lazy";
+    image.decoding = "async";
+    image.fetchPriority = "low";
+    image.src = thumbnailPath(group.first_frame);
     source.append(image);
 
     const header = document.createElement("div");
