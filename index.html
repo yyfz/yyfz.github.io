@@ -1440,7 +1440,7 @@
   </style>
 </head>
 
-<body>
+<body class="use-top-nav force-top-nav">
 
   <!-- Sidebar/menu -->
   <nav class="w3-sidebar w3-collapse w3-animate-left w3-center" style="z-index:3;width:300px;" id="mySidebar">
@@ -1477,9 +1477,37 @@
 
   <!-- !PAGE CONTENT! -->
   <style>
-    /* Default spacing for large screens */
-    .w3-main {
-      margin-left: 300px;
+    /* Force the former sidebar into a horizontal top navigation. */
+    body.force-top-nav .w3-main {
+      max-width: 1120px !important;
+      width: calc(100% - 48px) !important;
+      margin: 24px auto 0 !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    @media (max-width: 767px) {
+      body.force-top-nav nav.w3-sidebar {
+        flex-wrap: wrap !important;
+        gap: 8px 12px !important;
+        padding: 8px 12px !important;
+      }
+
+      body.force-top-nav nav.w3-sidebar .w3-container.w3-padding-16 {
+        display: none !important;
+      }
+
+      body.force-top-nav nav.w3-sidebar .w3-bar-block,
+      body.force-top-nav nav.w3-sidebar .w3-bar-block b {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+      }
+
+      body.force-top-nav .w3-main {
+        width: calc(100% - 24px) !important;
+        margin-top: 14px !important;
+      }
     }
   </style>
   <div class="w3-main">
@@ -1487,7 +1515,7 @@
 
     <div class="w3-container w3-card w3-white w3-margin-bottom" id="biography">
       <div class="avatar-carousel bio-carousel w3-right w3-margin w3-hide-large">
-        <div class="carousel-slide">
+        <div class="carousel-slide active">
           <img src="data/others/yifan.jpg" class="bio-avatar">
           <span class="year-tag">2026</span>
         </div>
@@ -1658,8 +1686,8 @@
 
     <script>
       // Avatar Carousel - syncs all carousels on page
-      // Initialize to last slide (newest photo - 2026)
-      let currentAvatarIndex = 2;
+      // Initialize to the newest photo.
+      let currentAvatarIndex = 0;
 
       function updateNavButtons() {
         const carousels = document.querySelectorAll('.avatar-carousel');
@@ -1918,6 +1946,11 @@
       const sidebar = document.getElementById('mySidebar');
       const viewportHeight = window.innerHeight;
       const viewportWidth = window.innerWidth;
+
+      if (document.body.classList.contains('force-top-nav')) {
+        document.body.classList.add('use-top-nav');
+        return;
+      }
 
       // Skip on very small screens (nav is hidden anyway)
       if (viewportWidth < 768) {
