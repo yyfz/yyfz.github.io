@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f9f9fb">
+    <meta name="description" content="Pi4: A Foundation Model for 4D Scene Geometry and Motion. Explore real 3D reconstructions and point trajectories in your browser.">
+    <meta property="og:title" content="π⁴: A Foundation Model for 4D Scene Geometry and Motion">
+    <meta property="og:description" content="A Foundation Model for 4D Scene Geometry and Motion by Shanghai AI Laboratory.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./assets/demos/anna/poster.webp">
+    <title>π⁴: A Foundation Model for 4D Scene Geometry and Motion</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+    <link rel="preload" href="./assets/ailab-logo-transparent.webp?v=20261116" as="image" fetchpriority="high">
+    <link rel="preload" href="./assets/fonts/gilda-display.woff" as="font" type="font/woff" crossorigin>
+    <link rel="stylesheet" href="./styles.css?v=20261116-title-weight">
+    <script type="importmap">{"imports":{"three":"./assets/vendor/three.module.min.js"}}</script>
+    <script type="module" src="./app.js?v=20261116-loading"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#explore">Skip to interactive results</a>
+    <svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="pi4-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#2563EB"/>
+          <stop offset="52%" stop-color="#7C3AED"/>
+          <stop offset="100%" stop-color="#C026D3"/>
+        </linearGradient>
+      </defs>
+      <symbol id="icon-pi4" viewBox="0 0 952 762">
+        <path transform="translate(0 740) scale(1 -1)" d="M171 485C139 485 101 485 79 468C55 450 31 355 18 291L46 279C62 325 92 388 135 388H229C221 333 200 243 180 200C145 125 89 40 75 21L76 8L154 -4L167 4C221 131 258 254 283 388H411L418 380C410 315 404 248 404 183C404 96 399 1 507 1C566 1 615 48 654 85L644 105L634 107C620 94 598 81 582 81C511 81 509 174 509 258C509 294 513 344 518 388H596C626 388 661 461 685 511L669 523C642 493 589 485 543 485Z"/>
+        <path transform="translate(660 320) scale(.45 -.45)" d="M606 154V210H497V627C497 657 492 662 462 662H447C428 662 420 662 407 647L40 210V154H360V56H236V0C285 4 375 4 427 4C449 4 581 2 606 0V56H497V154ZM373 524V210H109Z"/>
+      </symbol>
+      <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="icon-external" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+      <symbol id="icon-github" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 .7C6.5.7 2 5.2 2 10.7c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.9c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5 4-1.3 6.8-5.1 6.8-9.5C22 5.2 17.5.7 12 .7Z"/></symbol>
+      <symbol id="icon-report" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v5h4M10 12h5M10 16h5"/></symbol>
+      <symbol id="icon-play" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7Z"/></symbol>
+      <symbol id="icon-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+      <symbol id="icon-reset" viewBox="0 0 24 24"><path d="M4 11a8 8 0 1 1 2 6M4 4v7h7"/></symbol>
+      <symbol id="icon-camera" viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3V7Z"/><circle cx="12" cy="13" r="4"/></symbol>
+      <symbol id="icon-expand" viewBox="0 0 24 24"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    </svg>
+
+    <header class="header" id="header">
+      <div class="brand-lockup">
+        <a class="wordmark" href="#" aria-label="Pi4 home"><svg class="paper-logo" viewBox="0 0 952 762" aria-hidden="true"><use href="#icon-pi4"/></svg></a>
+        <div class="lab-lockup"><a class="lab-brand" href="https://www.shlab.org.cn/" target="_blank" rel="noopener" aria-label="Shanghai Artificial Intelligence Laboratory"><img src="./assets/ailab-logo-transparent.webp?v=20261116" alt="Shanghai Artificial Intelligence Laboratory" width="800" height="96"></a><span class="team-name">Physical Intelligence Team</span></div>
+      </div>
+      <nav aria-label="Main navigation">
+        <span class="nav-item"><span class="nav-note nav-note-left" aria-hidden="true"><span>open source!</span><svg viewBox="0 0 28 22"><path d="M3 2c10 0 17 5 18 14m-6-4 6 5 4-7"/></svg></span><a class="nav-button nav-external" data-github-link href="https://github.com/yyfz/Pi4" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#icon-github"/></svg>GitHub</a></span>
+        <a class="nav-button" data-paper-link href="" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#icon-report"/></svg>Technical Report</a>
+        <span class="nav-item"><span class="nav-note nav-note-right" aria-hidden="true"><span>try the demo!</span><svg viewBox="0 0 28 22"><path d="M3 2c10 0 17 5 18 14m-6-4 6 5 4-7"/></svg></span><a class="nav-button nav-external" data-hugging-face-link href="https://huggingface.co/spaces/yyfz233/Pi4" target="_blank" rel="noopener"><img class="huggingface-mark" src="./assets/huggingface.svg" alt="" width="95" height="88">Hugging Face</a></span>
+        <span class="nav-item"><span class="nav-note nav-note-left" aria-hidden="true"><span>open dataset!</span><svg viewBox="0 0 28 22"><path d="M3 2c10 0 17 5 18 14m-6-4 6 5 4-7"/></svg></span><a class="nav-button nav-external" href="https://weiguangzhao.github.io/GameRealm/" target="_blank" rel="noopener"><svg aria-hidden="true" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7"/></svg>GameRealm</a></span>
+        <a class="nav-button nav-demo" href="#explore">Explore demos<svg class="demo-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero section-shell" aria-labelledby="hero-heading">
+        <div class="hero-title-wrap">
+          <h1 id="hero-heading"><span class="hero-title-brand" aria-hidden="true"><svg class="paper-logo" viewBox="0 0 952 762"><use href="#icon-pi4"/></svg><span>:</span></span><span class="hero-title-copy"><span class="sr-only">π⁴: </span>A Foundation Model for 4D Scene Geometry and Motion</span></h1>
+          <p class="hero-authors">Yifan Wang<sup>1</sup>, Weiguang Zhao<sup>1</sup>, Ni Yang<sup>1</sup>, Haoyu Guo<sup>1,*</sup>, Junting Dong<sup>1,*</sup>, Weinan Zhang<sup>1,2</sup>, Chunhua Shen<sup>1,3,*</sup></p>
+          <p class="hero-affiliations"><span><sup>1</sup>Shanghai Artificial Intelligence Laboratory</span><span><sup>2</sup>Shanghai Jiao Tong University</span><span><sup>3</sup>Zhejiang University</span><span>* Corresponding authors</span></p>
+        </div>
+        <div class="hero-carousel">
+          <button class="hero-switch hero-switch-prev" id="hero-prev" aria-label="Previous demo: Cruise Ship Coaster">
+            <img class="hero-switch-poster" id="hero-prev-poster" src="./assets/demos/boat/poster.webp" alt="" loading="lazy" decoding="async" width="874" height="480">
+            <span class="hero-switch-content"><span class="hero-switch-direction"><svg><use href="#icon-arrow"/></svg></span><span class="hero-switch-copy"><span class="hero-switch-kicker">PREVIOUS DEMO</span><span class="hero-switch-name" id="hero-prev-name">Cruise Ship Coaster</span></span></span>
+          </button>
+          <div class="hero-player" id="hero-player" tabindex="0" aria-label="Demo video carousel. Use left and right arrows to change scenes.">
+            <div class="hero-media" aria-hidden="true">
+              <img id="hero-poster" class="hero-poster" src="./assets/demos/anna/poster.webp" alt="" fetchpriority="high" decoding="async" width="874" height="480">
+              <video id="hero-video" muted playsinline preload="auto" fetchpriority="high" tabindex="-1"></video>
+              <div class="hero-inset hero-inset-global" id="hero-global-wrap">
+                <span class="hero-inset-label">GLOBAL</span>
+                <video id="hero-global" muted loop playsinline preload="auto" tabindex="-1"></video>
+              </div>
+              <div class="hero-inset hero-inset-input" id="hero-input-wrap">
+                <span class="hero-inset-label">INPUT RGB</span>
+                <video id="hero-input" muted loop playsinline preload="auto" tabindex="-1"></video>
+              </div>
+            </div>
+            <div class="hero-demo-meta"><span id="hero-demo-name">Figure Skating</span><span id="hero-demo-index">01 / 12</span></div>
+          </div>
+          <button class="hero-switch hero-switch-next" id="hero-next" aria-label="Next demo: Waterfall Surfing">
+            <img class="hero-switch-poster" id="hero-next-poster" src="./assets/demos/waterfall1/poster.webp" alt="" loading="lazy" decoding="async" width="874" height="480">
+            <span class="hero-switch-content"><span class="hero-switch-direction"><svg><use href="#icon-arrow"/></svg></span><span class="hero-switch-copy"><span class="hero-switch-kicker">NEXT DEMO</span><span class="hero-switch-name" id="hero-next-name">Waterfall Surfing</span></span></span>
+          </button>
+        </div>
+        <div class="hero-timeline">
+          <button class="hero-video-control icon-button" id="hero-video-control" aria-label="Pause background video"><svg><use href="#icon-pause"/></svg></button>
+          <span class="hero-time" id="hero-current">00:00</span>
+          <input id="hero-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Demo progress">
+          <span class="hero-time" id="hero-duration">01:00</span>
+        </div>
+        <div class="hero-demo-nav" id="hero-demo-nav" role="group" aria-label="Choose a demo"></div>
+      </section>
+
+      <section class="explore section-shell" id="explore" aria-labelledby="explore-heading">
+        <div class="section-heading-row">
+          <div>
+            <span class="section-kicker">EXPLORE THE OUTPUT</span>
+            <h2 id="explore-heading">Interactive results</h2>
+          </div>
+          <p>Scene geometry, point tracks, and camera motion.<br>Select a sequence, then press play or drag to explore.</p>
+        </div>
+        <div class="scene-tabs" id="scene-tabs" role="group" aria-label="Choose a scene"></div>
+
+        <div class="viewer-shell" id="viewer-shell">
+          <div class="viewer-stage" id="viewer-stage" tabindex="0" role="region" aria-label="Interactive 3D point cloud. Drag to orbit, scroll to zoom, right-drag or shift-drag to pan. Space plays or pauses; arrow keys change frame; R resets the view.">
+            <img class="viewer-poster" id="viewer-poster" alt="" aria-hidden="true" decoding="async">
+            <div id="point-cloud" class="point-cloud"></div>
+            <div class="viewer-topline">
+              <div class="viewer-scene-meta"><span class="status-dot"></span><span id="scene-name">Loading scene</span><span class="scene-mode" id="scene-mode">3D reconstruction + tracking</span></div>
+              <div class="viewer-tools">
+                <button id="follow-view" class="icon-button is-active" aria-label="Disable camera follow" title="Follow camera (F)"><svg><use href="#icon-camera"/></svg></button>
+                <button id="reset-view" class="icon-button" aria-label="Reset camera view" title="Reset view (R)"><svg><use href="#icon-reset"/></svg></button>
+                <button id="fullscreen" class="icon-button" aria-label="Enter fullscreen" title="Fullscreen"><svg><use href="#icon-expand"/></svg></button>
+              </div>
+            </div>
+            <button class="video-inset" id="video-inset" type="button" disabled aria-label="View from the current input camera" title="Smoothly enter the current input camera">
+              <span class="inset-label"><span class="status-dot"></span> INPUT RGB <span class="inset-camera-action">ENTER CAMERA ↗</span></span>
+              <video id="input-video" muted playsinline preload="metadata" tabindex="-1" aria-label="Input RGB video, synchronized with the 3D scene"></video>
+              <span class="video-unavailable" id="video-unavailable" hidden>RGB preview unavailable.<br>3D playback remains available.</span>
+            </button>
+            <div class="viewer-status" id="viewer-status" role="status" aria-live="polite"><div class="viewer-loading-feedback"><span class="loading-ring"></span><p id="loading-text">Preparing your perspective…</p></div><button class="button button-outline" id="retry-scene" hidden>Try again</button></div>
+            <div class="viewer-bottomline">
+              <span class="interaction-hint"><span class="desktop-hint">DRAG TO ORBIT <i>·</i> SCROLL TO ZOOM <i>·</i> SHIFT + DRAG TO PAN</span><span class="touch-hint">DRAG TO ORBIT <i>·</i> PINCH TO ZOOM <i>·</i> TWO FINGERS TO PAN</span></span>
+              <span class="viewer-stat" id="viewer-stat"></span>
+            </div>
+            <div class="orientation" aria-hidden="true"><span class="axis-up">Y</span><span class="axis-right">X</span><span class="axis-depth">Z</span></div>
+          </div>
+          <div class="viewer-controls">
+            <div class="timeline-row">
+              <button class="play-button" id="play" disabled aria-label="Play point cloud" title="Play / pause (Space)"><svg><use href="#icon-play"/></svg></button>
+              <output id="current-time" class="time-label" for="timeline">00:00</output>
+              <div class="camera-stream" id="camera-stream">
+                <div class="camera-stream-meta" aria-hidden="true"><span>CAMERA STREAM</span><span>DRAG TO ENTER ANY FRAME</span></div>
+                <div class="camera-stream-track" id="camera-stream-track">
+                  <canvas id="camera-filmstrip" aria-hidden="true"></canvas>
+                  <span class="camera-stream-progress" aria-hidden="true"></span>
+                  <span class="camera-thumb" id="camera-thumb" aria-hidden="true"><canvas id="camera-thumb-image" width="144" height="90"></canvas><span id="camera-thumb-frame">001</span></span>
+                  <input type="range" id="timeline" min="0" max="1" value="0" step="1" disabled aria-label="Video stream: drag to smoothly enter any input camera">
+                </div>
+              </div>
+              <output id="duration" class="time-label" for="timeline">00:00</output>
+              <label class="speed-label"><span class="sr-only">Playback speed</span><select id="speed" aria-label="Playback speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
+              <span class="frame-label" id="frame-label">FRAME — / —</span>
+            </div>
+            <div class="layers-row">
+              <span class="controls-label">LAYERS</span>
+              <label class="layer-toggle"><input id="show-cloud" type="checkbox" checked><span class="toggle-check"><svg><use href="#icon-check"/></svg></span>Point cloud</label>
+              <label class="layer-toggle"><input id="show-frame" type="checkbox" checked><span class="toggle-check"><svg><use href="#icon-check"/></svg></span>Current frame</label>
+              <label class="layer-toggle" id="tracks-toggle"><input id="show-tracks" type="checkbox" checked><span class="toggle-check"><svg><use href="#icon-check"/></svg></span>Point tracks</label>
+              <label class="layer-toggle"><input id="show-cameras" type="checkbox" checked><span class="toggle-check"><svg><use href="#icon-check"/></svg></span>Camera views</label>
+              <label class="point-size-label">Point size<input id="point-size" type="range" min="0" max="100" value="50" step="1" aria-label="Point size"><output id="point-size-value" for="point-size">0.60×</output></label>
+            </div>
+          </div>
+        </div>
+        <div class="viewer-caption"><p><span class="legend-dot legend-frame"></span>Current-frame geometry<span class="legend-dot legend-track"></span>Point trajectories<span class="legend-dot legend-camera"></span>Recovered cameras</p><span>Real predictions. Confidence-filtered &amp; downsampled.</span></div>
+        <noscript><p class="notice">Enable JavaScript to explore interactive 3D results. The paper remains available through the links on this page.</p></noscript>
+      </section>
+    </main>
+    <footer class="footer section-shell"><div class="brand-lockup"><a class="wordmark" href="#" aria-label="Pi4 home"><svg class="paper-logo" viewBox="0 0 952 762" aria-hidden="true"><use href="#icon-pi4"/></svg></a><div class="lab-lockup"><a class="lab-brand" href="https://www.shlab.org.cn/" target="_blank" rel="noopener" aria-label="Shanghai Artificial Intelligence Laboratory"><img src="./assets/ailab-logo-transparent.webp?v=20261116" alt="Shanghai Artificial Intelligence Laboratory" width="800" height="96"></a><span class="team-name">Physical Intelligence Team</span></div></div></footer>
+  </body>
+</html>
