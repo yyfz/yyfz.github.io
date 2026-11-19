@@ -1,5 +1,19 @@
 const publications = [
   {
+    id: 'pi4',
+    title: 'π⁴: A Foundation Model for 4D Scene Geometry and Motion',
+    venue: 'arXiv 2026',
+    achievements: '',
+    authors: 'Yifan Wang, Weiguang Zhao, Ni Yang, Haoyu Guo†, Junting Dong†, Weinan Zhang, Chunhua Shen†',
+    tags: ['first', 'key'],
+    image: 'data/paper/pi4.gif',
+    links: {
+      paper: 'https://arxiv.org/abs/2611.23144',
+      page: './pi4/',
+      github: 'https://github.com/yyfz/Pi4',
+    },
+  },
+  {
     id: 'warp-as-history',
     title: 'Warp-as-History: Generalizable Camera-Controlled Video Generation from One Training Video',
     venue: 'Under review',
